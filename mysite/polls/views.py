@@ -21,7 +21,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Hello, world. You're at the polls index now.")
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

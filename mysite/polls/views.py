@@ -15,7 +15,6 @@ from .models import Choice, Question
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list' : latest_question_list}
-    # template = loader.get_template('polls/index.html')
     return render(request, 'polls/index.html', context)
     # output = ', '.join([q.question_text for q in latest_question_list])
     # return HttpResponse(output)

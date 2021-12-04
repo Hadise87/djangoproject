@@ -9,6 +9,8 @@
 </ul>
 
 <!-- This piece of code displays a radio button for each question choice: -->
+<!-- Using method="post" (as opposed to method="get") is very important,because the act of submitting this form will alter data server-side. -->
+<!-- Kolan method = post na tanha dar django balke dar web development mohem ast -->
 <form action= "{% url 'polls:vote' question.id %}" method ="post">
   {% csrf_token %}
   <fieldset>

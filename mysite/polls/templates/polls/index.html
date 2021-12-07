@@ -8,4 +8,8 @@
 {% else %}
   <p>No polls are available.</p>
 {% endif %}
-  
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<!-- {% load static %} URL haye motlaghe file haye static ro tolid mikone -->

@@ -1,12 +1,17 @@
 
 # Create your tests here. ye testCase sakhtim inja
 import datetime
+
 from django.test import TestCase
 from django.utils import timezone
+
 from .models import Question
+
+
 from django.urls import reverse
 
 class QuesionModelTests(TestCase):
+
     def test_was_published_recently_with_future_question(self):
         """ 
         was_published_recently() returns False for questions whose pub_date is in the future.
@@ -20,9 +25,9 @@ class QuesionModelTests(TestCase):
         """
         was_published_recently() returns false for questions whose pub_date is older than 1 day.
         """
-        time = timezone.now() - datetime.timedelta(days=1, second=1)
+        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
         old_question = Question(pub_date=time)
-        self.assertIs(old_question.was_published_rrecently(), False)
+        self.assertIs(old_question.was_published_recently(), False)
     def test_was_published_recently_with_recent_question(self):
         """
         was_published_recently() returns True for questions whose pub_date is whitin the last day.
@@ -31,7 +36,7 @@ class QuesionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
-    def create_question(question_text, days):
+def create_question(question_text, days):
         """
         Create a question with the given `question_text` and published the
         given number of `days` offset to now (negative for questions published

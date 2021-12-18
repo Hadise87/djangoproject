@@ -1,13 +1,12 @@
-
+from django.template import loader
 from django.http import  HttpResponseRedirect
-# from django.template import loader
-# The get_object_or_404() function takes a Django model as its first argument and an arbitrary number of keyword arguments, which it passes to the get() function of the model’s manager. It raises Http404 if the object doesn’t exist.
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
-from .models import Choice, Question
+
 from django.utils import timezone
+from .models import Question, Choice
 
 # As we had in generic definition generic views abstract common patterns to the point where you don’t even need to write Python code to write an app. so we changed add def to class
 
@@ -29,18 +28,12 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
-
-                # we dont need these two def also:
-
-
-                    # This def for vote as before
 def vote(request, question_id):
+    #print(request.POST['choice'])
     question = get_object_or_404(Question, pk=question_id)
     try:
-        # request.POST va request.POST['choice'] hamishe outpiteshun string hast
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
         return render(request, 'polls/detail.html' , {
             'question': question,
             'error_message' : "you didn't select a choice.",
@@ -48,17 +41,12 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-
-             # Always return an HttpResponseRedirect after successfully dealing with POST data. This prevents data from being posted twice if a user hits the Back button.
-             
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-    # return HttpPesponse("You're voting on question %s." % question_id)
-
+   
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
-        #  In question.object .... ye queryset barmigardune ke dakhele an Questions haii hast ke pub_date anha zudtar az timezone alane.
     def get_queryset(self):
         """
         Return the last five published questions (not including those set to be

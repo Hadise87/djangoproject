@@ -1,5 +1,4 @@
 {{ question }}
-<!-- first Django does a dictionary lookup on the object question. Failing that, it tries an attribute lookup – which works, in this case. If attribute lookup had failed, it would’ve tried a list-index lookup.: -->
 <h1>{{ question.question_text }}</h1>
 <ul>
 {% for choice in question.choice_set.all %}
@@ -7,18 +6,20 @@
     <li>{{ choice.choice_text }}</li>
 {% endfor %}
 </ul>
-
-<!-- This piece of code displays a radio button for each question choice: -->
-<!-- Using method="post" (as opposed to method="get") is very important,because the act of submitting this form will alter data server-side. -->
-<!-- Kolan method = post na tanha dar django balke dar web development mohem ast -->
 <form action= "{% url 'polls:vote' question.id %}" method ="post">
   {% csrf_token %}
   <fieldset>
     <legend><h1>{{ question.question_text }}</h1></legend>
-    {% if error_message %}<p><storage>{{ error_message }}</storage></p>{% endif %}
+    {% if error_message %} 
+    <p><storage>{{ error_message }}</storage></p>
+    {% endif %}
     {% for choice in question.choice_set.all %}
-      <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-      <!-- indivated how many time for tag has gone through the loop -->
+      <input 
+      type="radio" 
+      name="choice" 
+      id="choice{{ forloop.counter }}" 
+      value="{{ choice.id }}"
+      />
       <label for="choice{{ forloop.counter }}"> {{ choice.choice_text }}</label><br>
       {% endfor %}
   </fieldset>
